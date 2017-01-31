@@ -1,0 +1,64 @@
+# majority of the instructions were adopted from https://github.com/rricharz/pi-top-install/blob/master/speaker.txt
+
+edit /boot/config.txt
+enable all i2c-* options
+
+     sudo modprobe --first-time i2c-dev
+
+     i2cdetect 1
+
+should return
+WARNING! This program can confuse your I2C bus, cause data loss and worse!
+I will probe file /dev/i2c-1.
+I will probe address range 0x03-0x77.
+Continue? [Y/n] 
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- 71 72 -- -- -- -- --                         
+
+install pt-speaker
+
+
+	sudo apt-get update
+	sudo apt-get install -y python-smbus wiringpi i2c-tools
+
+	cd /etc/apt/sources.list.d
+	sudo nano pi-top.list
+
+make a new file named pi-top.list :
+	sudo nano pi-top.list
+
+add the following line:
+
+	deb http://apt.pi-top.com/raspbian/ jessie main
+
+save the file and close the editor.
+
+Navigate to your home directory and get the required public key:
+
+	cd
+ 	wget http://apt.pi-top.com/apt.pi-top.com.gpg.key
+
+Add the key to the APT keyring, then remove it from your home directory
+
+ 	sudo apt-key add apt.pi-top.com.gpg.key
+ 	rm apt.pi-top.com.gpg.key
+
+Ensure the Pi is up to date:
+
+ 	sudo apt-get update
+
+	sudo apt-get upgrade
+
+	sudo mkdir -p /etc/xdg/lxsession/LXDE-pi/
+	sudo touch /etc/xdg/lxsession/LXDE-pi/autostart
+
+	sudo apt-get install pt-speaker
+
+reboot it should work
