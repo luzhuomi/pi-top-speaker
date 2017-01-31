@@ -22,6 +22,15 @@ Continue? [Y/n]
 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 70: -- 71 72 -- -- -- -- --                         
 
+
+add i2c-dev to /etc/modules
+
+    sudo vim /etc/modules
+
+add 
+
+    i2c-dev
+
 install pt-speaker
 
 
